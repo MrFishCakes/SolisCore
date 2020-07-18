@@ -14,5 +14,6 @@ This project follows the *Major.Minor.Patch* versioning.
  - Custom configurations
  - User management
  - Punishments
+ - Custom command management
 
 I will add more to this list as we progress through with the plugin
