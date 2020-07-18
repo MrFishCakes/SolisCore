@@ -10,7 +10,7 @@ This project follows the *Major.Minor.Patch* versioning.
 
 ## TODO List
 
- - Custom plugin class
+ - ~~Custom plugin class~~ - Added in v1.0.0
  - Custom configurations
  - User management
  - Punishments
