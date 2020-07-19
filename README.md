@@ -11,8 +11,8 @@ This project follows the *Major.Minor.Patch* versioning.
 ## TODO List
 
  - ~~Custom plugin class~~ - Added in v1.0.0
- - Custom configurations
- - User management
+ - ~~Custom configurations~~ - Added in v1.0.0
+ - ~~User management~~ - Added in v1.3.0 (to expand upon)
  - Punishments
  - ~~Custom command management~~ - Added in v1.2.1 (would like to expand upon)
 

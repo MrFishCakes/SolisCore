@@ -1,6 +1,6 @@
 name: Core
 version: ${project.version}
 main: net.solismc.core.Core
-api-version: 1.16
+api-version: 1.13
 authors: [MrFishCakes]
 description: Core plugin for SolisMC

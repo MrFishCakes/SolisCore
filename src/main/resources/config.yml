@@ -1,2 +1,6 @@
-# Test comment
-TestKey: 'TestValue'
+# All settings relating to a User are stored here
+User:
+  # Valid options are MySQL, YAML or JSON
+  # MySQL allows for syncing of data between servers
+  # As of 1.3.0 only JSON and YAML have been implemented
+  StorageType: 'JSON'
