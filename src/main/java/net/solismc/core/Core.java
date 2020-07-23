@@ -1,7 +1,9 @@
 package net.solismc.core;
 
+import net.solismc.core.api.command.CommandManager;
 import net.solismc.core.api.plugin.SolisPlugin;
 import net.solismc.core.api.user.UserManager;
+import net.solismc.core.commands.UserCommand;
 
 public final class Core extends SolisPlugin {
 
@@ -21,6 +23,9 @@ public final class Core extends SolisPlugin {
     public void onStart() {
         saveDefaultConfig();
         userManager = new UserManager(this);
+        CommandManager commandManager = new CommandManager(this);
+        commandManager.registerCommands(new UserCommand());
+        commandManager.clear();
     }
 
     @Override
