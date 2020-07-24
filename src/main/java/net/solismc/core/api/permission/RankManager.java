@@ -1,6 +1,7 @@
 package net.solismc.core.api.permission;
 
 import com.google.common.collect.Sets;
+import net.solismc.core.api.plugin.InitializationException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -20,11 +21,12 @@ public class RankManager {
     /**
      * Create a new RankManager
      *
+     * @throws InitializationException If the class has already been initialized
      * @since 1.4.0
      */
-    public RankManager() {
+    public RankManager() throws InitializationException {
         if (loaded) {
-            throw new RuntimeException(getClass().getName() + " has already been initialised!");
+            throw new InitializationException(this);
         }
 
         loaded = true;

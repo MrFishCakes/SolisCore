@@ -2,9 +2,13 @@ package net.solismc.core;
 
 import net.solismc.core.api.command.CommandManager;
 import net.solismc.core.api.permission.RankManager;
+import net.solismc.core.api.plugin.InitializationException;
 import net.solismc.core.api.plugin.SolisPlugin;
 import net.solismc.core.api.user.UserManager;
 import net.solismc.core.commands.UserCommand;
+import org.bukkit.Bukkit;
+
+import java.util.logging.Level;
 
 public final class Core extends SolisPlugin {
 
@@ -34,8 +38,15 @@ public final class Core extends SolisPlugin {
     @Override
     public void onStart() {
         saveDefaultConfig();
-        userManager = new UserManager(this);
-        rankManager = new RankManager();
+
+        try {
+            userManager = new UserManager(this);
+            rankManager = new RankManager();
+        } catch (InitializationException ex) {
+            getLogger().log(Level.SEVERE, "Manager was already initialized", ex);
+            Bukkit.shutdown();
+            return;
+        }
 
         CommandManager commandManager = new CommandManager(this);
         commandManager.registerCommands(new UserCommand());
@@ -44,10 +55,14 @@ public final class Core extends SolisPlugin {
 
     @Override
     public void onStop() {
-        rankManager.clear();
-        rankManager = null;
+        if (rankManager != null) {
+            rankManager.clear();
+            rankManager = null;
+        }
 
-        userManager.clear();
-        userManager = null;
+        if (userManager != null) {
+            userManager.clear();
+            userManager = null;
+        }
     }
 }

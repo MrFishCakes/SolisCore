@@ -9,6 +9,7 @@ import de.leonhard.storage.internal.settings.ConfigSettings;
 import de.leonhard.storage.internal.settings.ReloadSettings;
 import net.solismc.core.Core;
 import net.solismc.core.api.permission.Rank;
+import net.solismc.core.api.plugin.InitializationException;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -40,11 +41,12 @@ public class UserManager implements Listener {
      * Create a new UserManger
      *
      * @param plugin Core instance
+     * @throws InitializationException If the class has already been initialized
      * @since 1.3.0
      */
-    public UserManager(final Core plugin) {
+    public UserManager(final Core plugin) throws InitializationException {
         if (loaded) {
-            throw new RuntimeException(getClass().getName() + " has already been initialised!");
+            throw new InitializationException(this);
         }
 
         loaded = true;
