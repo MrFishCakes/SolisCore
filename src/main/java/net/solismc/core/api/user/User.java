@@ -2,6 +2,7 @@ package net.solismc.core.api.user;
 
 import com.google.common.net.InetAddresses;
 import net.solismc.core.Core;
+import net.solismc.core.api.permission.Rank;
 import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +18,7 @@ public class User {
     private final UUID uniqueId;
     private final String name;
     private final int address;
+    private Rank rank;
 
     /**
      * Create a new User from {@link Player}
@@ -44,6 +46,7 @@ public class User {
         this.uniqueId = uuid;
         this.name = name;
         this.address = address;
+        this.rank = Core.getRankManager().getDefaultRank();
     }
 
     /**
@@ -51,7 +54,7 @@ public class User {
      *
      * @since 1.3.0
      */
-    public void save() {
+    public final void save() {
         Core.getUserManager().saveUser(this);
     }
 
@@ -83,6 +86,28 @@ public class User {
      */
     public int getAddress() {
         return address;
+    }
+
+    /**
+     * Get the rank of the User
+     *
+     * @return User rank
+     * @since 1.4.0
+     */
+    public Rank getRank() {
+        return rank;
+    }
+
+    /**
+     * Set the User's rank
+     *
+     * @param rank Rank to set
+     * @since 1.4.0
+     */
+    public void setRank(@NotNull final Rank rank) {
+        Validate.notNull(rank, "rank is null");
+
+        this.rank = rank;
     }
 
 }

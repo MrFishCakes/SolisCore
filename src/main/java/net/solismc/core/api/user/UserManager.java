@@ -8,6 +8,7 @@ import de.leonhard.storage.Yaml;
 import de.leonhard.storage.internal.settings.ConfigSettings;
 import de.leonhard.storage.internal.settings.ReloadSettings;
 import net.solismc.core.Core;
+import net.solismc.core.api.permission.Rank;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -99,6 +100,9 @@ public class UserManager implements Listener {
                 User user = new User(UUID.fromString(jsonData.getString("UniqueId")),
                         jsonData.getString("PlayerName"), jsonData.getInt("PlayerAddress"));
 
+                Optional<Rank> optionalRank = Core.getRankManager().fromString(
+                        jsonData.getString("PlayerRank"));
+                optionalRank.ifPresent(user::setRank);
                 users.add(user);
                 return;
             }
@@ -113,6 +117,9 @@ public class UserManager implements Listener {
                 User user = new User(UUID.fromString(yamlData.getString("UniqueId")),
                         yamlData.getString("PlayerName"), yamlData.getInt("PlayerAddress"));
 
+                Optional<Rank> optionalRank = Core.getRankManager().fromString(
+                        yamlData.getString("PlayerRank"));
+                optionalRank.ifPresent(user::setRank);
                 users.add(user);
                 return;
             }
@@ -139,6 +146,7 @@ public class UserManager implements Listener {
             jsonData.set("UniqueId", user.getUniqueId().toString());
             jsonData.set("PlayerName", user.getName());
             jsonData.set("PlayerAddress", user.getAddress());
+            jsonData.set("PlayerRank", user.getRank().getName());
 
             users.remove(user);
         } else if (storageMethod == StorageMethod.YAML) {
@@ -149,6 +157,7 @@ public class UserManager implements Listener {
             yamlData.set("UniqueId", user.getUniqueId().toString());
             yamlData.set("PlayerName", user.getName());
             yamlData.set("PlayerAddress", user.getAddress());
+            yamlData.set("PlayerRank", user.getRank().getName());
 
             users.remove(user);
         }
